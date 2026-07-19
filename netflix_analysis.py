@@ -54,10 +54,13 @@ def content_type_analysis_piechart(df_cleaned):
     plt.title("Content Type Distribution")
     plt.show()
 def top_countries(df_cleaned):
+    df_cleaned['country']=df_cleaned['country'].str.split(',')
+    df_cleaned=df_cleaned.explode('country',ignore_index=True)
+    df_cleaned['country']=df_cleaned['country'].str.strip()
     top_country=df_cleaned["country"].value_counts().head(10)
     plt.barh(top_country.index,top_country.values,color='red')
     plt.title("Country Analysis")
-    plt.xlabel('Values')
+    plt.xlabel('Number of Titles')
     plt.ylabel('Countries')
     plt.show()
 def release_year_analysis(df_cleaned):
@@ -73,6 +76,9 @@ def release_year_analysis(df_cleaned):
     plt.legend()
     plt.show()
 def genre_analysis(df_cleaned):
+    df_cleaned['listed_in']=df_cleaned['listed_in'].str.split(',')
+    df_cleaned=df_cleaned.explode('listed_in',ignore_index=True)
+    df_cleaned['listed_in']=df_cleaned['listed_in'].str.strip()
     genre_counts=df_cleaned['listed_in'].value_counts()
     print(genre_counts.idxmax())
     max_10=genre_counts.head(10)
