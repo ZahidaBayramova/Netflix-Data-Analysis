@@ -42,7 +42,9 @@ def content_type_analysis_barchart(df_cleaned):
     plt.title("Content Type Distribution")
     plt.xlabel("Films and TV Shows")
     plt.ylabel("Numbers")
-    plt.show()
+    plt.tight_layout()
+    plt.savefig("images/content_type_bar.png")
+    plt.close()
 def content_type_analysis_piechart(df_cleaned):
         
     cat=df_cleaned['type'].value_counts()
@@ -52,7 +54,9 @@ def content_type_analysis_piechart(df_cleaned):
             autopct="%1.1f%%",
             shadow=True)
     plt.title("Content Type Distribution")
-    plt.show()
+    plt.tight_layout()
+    plt.savefig("images/content_type_pie.png")
+    plt.close()
 def top_countries(df_cleaned):
     df_cleaned['country']=df_cleaned['country'].str.split(',')
     df_cleaned=df_cleaned.explode('country',ignore_index=True)
@@ -62,7 +66,9 @@ def top_countries(df_cleaned):
     plt.title("Country Analysis")
     plt.xlabel('Number of Titles')
     plt.ylabel('Countries')
-    plt.show()
+    plt.tight_layout()
+    plt.savefig("images/top_countries.png")
+    plt.close()
 def release_year_analysis(df_cleaned):
     tvshows=df_cleaned[df_cleaned['type']=='TV Show']
     tvshows_byyear=tvshows['release_year'].value_counts().sort_index()
@@ -74,7 +80,9 @@ def release_year_analysis(df_cleaned):
     plt.ylabel("Number of Titles")
     plt.title("Movies vs TV Shows by Release Year")
     plt.legend()
-    plt.show()
+    plt.tight_layout()
+    plt.savefig("images/release_year.png")
+    plt.close()
 def genre_analysis(df_cleaned):
     df_cleaned['listed_in']=df_cleaned['listed_in'].str.split(',')
     df_cleaned=df_cleaned.explode('listed_in',ignore_index=True)
@@ -86,7 +94,9 @@ def genre_analysis(df_cleaned):
     plt.xlabel('Values')
     plt.ylabel('Genres')
     plt.title('Top 10 genres')
-    plt.show()
+    plt.tight_layout()
+    plt.savefig("images/genres.png")
+    plt.close()
 def dateadded_analysis(df_cleaned):
     df_cleaned['year']=df_cleaned['date_added'].dt.year
     tvshows=df_cleaned[df_cleaned['type']=='TV Show']
@@ -99,7 +109,9 @@ def dateadded_analysis(df_cleaned):
     plt.xlabel('Added Year')
     plt.ylabel('Number of Titles')
     plt.title('TV Shows and Movies by Added date')
-    plt.show()
+    plt.tight_layout()
+    plt.savefig("images/dateadded_analysis.png")
+    plt.close()
 def duration_analysis(df_cleaned):
     movies=df_cleaned[df_cleaned['type']=='Movie'].copy()
     movies['duration']=movies['duration'].str.replace(' min','').astype(int)
@@ -110,7 +122,10 @@ def duration_analysis(df_cleaned):
     plt.hist(movies['duration'],color='red')
     plt.xlabel('Values')
     plt.ylabel('Duration')
-    plt.show()
+    plt.title("Movie Duration Distribution")
+    plt.tight_layout()
+    plt.savefig("images/duration.png")
+    plt.close()
 def rating_analysis(df_cleaned):
     ratings=df_cleaned['rating'].value_counts()
     best5=ratings.head(5)
@@ -118,7 +133,10 @@ def rating_analysis(df_cleaned):
     plt.title('Rating Distribution')
     plt.xlabel('Movies and TV Shows')
     plt.ylabel('Rating')
-    plt.show()
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig("images/rating.png")
+    plt.close()
 def director_analysis(df_cleaned):
     df_cleaned['director']=df_cleaned['director'].str.split(',')
     df_cleaned=df_cleaned.explode('director',ignore_index=True)
@@ -128,7 +146,9 @@ def director_analysis(df_cleaned):
     plt.title('Director Analysis')
     plt.xlabel('Counts')
     plt.ylabel('Name of Directors')
-    plt.show()
+    plt.tight_layout()
+    plt.savefig("images/directors.png")
+    plt.close()
 def actor_analysis(df_cleaned):
     df_cleaned['cast']=df_cleaned['cast'].str.split(',')
     df_cleaned=df_cleaned.explode('cast',ignore_index=True)
@@ -138,7 +158,9 @@ def actor_analysis(df_cleaned):
     plt.title('Actor Analysis')
     plt.xlabel('Counts')
     plt.ylabel('Name of Actors')
-    plt.show()
+    plt.tight_layout()
+    plt.savefig("images/actors.png")
+    plt.close()
 def monthly_trend_analysis(df_cleaned):
     df_cleaned['month_name']=df_cleaned['date_added'].dt.month_name()
     month_count=df_cleaned['month_name'].value_counts().head(10)
@@ -146,7 +168,9 @@ def monthly_trend_analysis(df_cleaned):
     plt.title('Monthly Analysis')
     plt.xlabel('Months')
     plt.ylabel('Counts')
-    plt.show()
+    plt.tight_layout()
+    plt.savefig("images/monthlytrend.png")
+    plt.close()
 
 if __name__ == "__main__":
     dataset_overview(df)
