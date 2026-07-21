@@ -211,7 +211,7 @@ pip install -r requirements.txt
 Run the project:
 
 ```bash
-python data_analysis.py
+python netflix_analysis.py
 ```
 
 ---
