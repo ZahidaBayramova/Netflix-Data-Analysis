@@ -171,6 +171,50 @@ def monthly_trend_analysis(df_cleaned):
     plt.tight_layout()
     plt.savefig("images/monthlytrend.png")
     plt.close()
+def yearly_growth(df_cleaned):
+    df_cleaned['year']=df_cleaned['date_added'].dt.year
+    years=df_cleaned['year'].value_counts().sort_index()
+    plt.plot(years.index,years.values)
+    plt.title("Yearly Growth")
+    plt.xlabel("Years")
+    plt.ylabel("Counts")
+    plt.tight_layout()
+    plt.savefig("images/yearly.png")
+    plt.close()
+def get_movies(df_cleaned):
+    movies=df_cleaned[df_cleaned['type']=='Movie'].copy()
+    movies['duration']=movies['duration'].str.replace(' min','').astype(int)
+    return movies
+movies=get_movies(df_cleaned)
+def longest_movie(movies): 
+    longest_duration=movies['duration'].max()
+    longest=movies[movies['duration']==longest_duration]
+    print("Longest Movie:")
+    print(longest['title'])
+    print(longest['duration'])
+def shortest_film(movies):
+    shortest_duration=movies['duration'].min()
+    shortest=movies[movies['duration']==shortest_duration]
+    print("Shortest Movie:")
+    print(shortest['title'])
+    print(shortest['duration'])
+def oldest_film(movies):
+    oldest=movies.sort_values(by='release_year')
+    print(oldest.head(1))
+def newest_film(movies):
+    newest=movies.sort_values(by='release_year',ascending=False)
+    print(newest.head(1))
+def last10year(df_cleaned):
+    df_cleaned['year']=df_cleaned['date_added'].dt.year
+    last10=df_cleaned[df_cleaned['year']>=2016] 
+    counts=last10['year'].value_counts()
+    plt.plot(counts.index,counts.values)
+    plt.title("Last 10 year analysis")
+    plt.xlabel("Years")
+    plt.ylabel("Number of content")
+    plt.tight_layout()
+    plt.savefig("images/last10.png")
+    plt.close()
 
 if __name__ == "__main__":
     dataset_overview(df)
@@ -187,4 +231,10 @@ if __name__ == "__main__":
     rating_analysis(df_cleaned)
     director_analysis(df_cleaned)
     actor_analysis(df_cleaned)
-    monthly_trend_analysis
+    monthly_trend_analysis(df_cleaned)
+    yearly_growth(df_cleaned)
+    longest_movie(movies)
+    shortest_film(movies)
+    oldest_film(movies)
+    newest_film(movies)
+    last10year(df_cleaned)
